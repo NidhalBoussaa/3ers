@@ -26,6 +26,9 @@ export function LandingHero() {
       return;
     }
     v.muted = true;
+    // preload="none" keeps the 15MB film from competing with the intro video
+    // for bandwidth; once the intro is over, kick off the load + play here.
+    v.load();
     v.play().catch(() => {});
   }, [introDone]);
 
@@ -44,7 +47,7 @@ export function LandingHero() {
         playsInline
         muted
         loop
-        preload="auto"
+        preload="none"
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
