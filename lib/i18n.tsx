@@ -40,11 +40,15 @@ export function I18nProvider({
   const [introDone, setIntroDone] = useState(false);
   const [userTapped, setUserTapped] = useState(false);
 
-  // hydrate from localStorage on mount
+  // hydrate from localStorage on mount — but only honour a saved language that
+  // is still offered. A stale value (e.g. "fr" from before this became an
+  // Arabic-only invite) is ignored and purged so it can't resurrect old copy.
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(`lang_${config.couple.monogram}`) as Lang | null;
+      const key = `lang_${config.couple.monogram}`;
+      const saved = localStorage.getItem(key) as Lang | null;
       if (saved && available.includes(saved)) setLangState(saved);
+      else if (saved) localStorage.removeItem(key);
     } catch {}
   }, [available, config.couple.monogram]);
 

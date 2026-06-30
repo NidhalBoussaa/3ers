@@ -13,10 +13,20 @@ export function LandingHero() {
   const ref = useRef<HTMLVideoElement | null>(null);
   const src = config.assets.landingVideo;
 
+  // The landing film must NOT start until the entrance/intro is over.
+  // Keep it paused at frame 0 while the intro runs, then play once introDone.
   useEffect(() => {
-    if (!introDone || !ref.current) return;
-    ref.current.muted = true;
-    ref.current.play().catch(() => {});
+    const v = ref.current;
+    if (!v) return;
+    if (!introDone) {
+      v.pause();
+      try {
+        v.currentTime = 0;
+      } catch {}
+      return;
+    }
+    v.muted = true;
+    v.play().catch(() => {});
   }, [introDone]);
 
   if (!src) return null;
@@ -27,10 +37,11 @@ export function LandingHero() {
       className="relative w-full h-[100svh] min-h-[420px] overflow-hidden bg-night"
     >
       {/* z-0 video */}
+      {/* No autoPlay — playback is started by the introDone effect above, so
+          the film never runs during the entrance section. */}
       <video
         ref={ref}
         playsInline
-        autoPlay
         muted
         loop
         preload="auto"
@@ -46,7 +57,7 @@ export function LandingHero() {
         className="absolute inset-0 pointer-events-none z-[1]"
         style={{
           background:
-            "linear-gradient(180deg, rgba(11,8,5,.45) 0%, rgba(11,8,5,.12) 22%, rgba(11,8,5,.12) 52%, rgba(11,8,5,.5) 80%, var(--cream) 100%)",
+            "linear-gradient(180deg, rgba(11,8,5,.45) 0%, rgba(11,8,5,.12) 22%, rgba(11,8,5,.12) 52%, rgba(11,8,5,.42) 82%, rgba(243,236,221,.55) 100%)",
         }}
       />
 

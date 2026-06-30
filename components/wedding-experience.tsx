@@ -5,6 +5,7 @@ import { Intro } from "./intro";
 import { Petals } from "./petals";
 import { DustCanvas } from "./dust-canvas";
 import { FloatingDock } from "./floating-dock";
+import { MarqueeBar } from "./marquee-bar";
 
 /** Mounts the intro overlay + scroll-time effects + floating dock; the static main page renders separately. */
 export function WeddingExperience({ skipIntro }: { skipIntro?: boolean }) {
@@ -19,6 +20,7 @@ export function WeddingExperience({ skipIntro }: { skipIntro?: boolean }) {
       <DustCanvas />
       <Petals active={introDone} />
       {!skipIntro && <Intro onDone={markIntroDone} />}
+      <MarqueeBar />
       <FloatingDock />
     </>
   );

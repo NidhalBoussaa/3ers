@@ -1,48 +1,50 @@
-import type { WeddingConfig, Lang } from "@/lib/schema";
+import type { WeddingConfig } from "@/lib/schema";
 import { Reveal } from "@/components/reveal";
-
-const LANGS: Lang[] = ["fr", "ar", "en"];
+import { LuxeCard } from "@/components/luxe-card";
 
 export function ProgramSection({ config }: { config: WeddingConfig }) {
   const lbl = config.i18n.labels;
   return (
     <>
       <Reveal variant="rise">
-        <div className="font-cinzel text-[11px] tracking-[5px] text-gold-deep/80 mb-3">
-          {LANGS.map((l) => (
-            <span key={l} data-lang={l}>{lbl.program[l]}</span>
-          ))}
+        <div className="font-amiri text-base tracking-[2px] text-gold-deep/80 mb-5">
+          {lbl.program.ar}
         </div>
       </Reveal>
 
-      {/* cards become direct children of the wrapper so they stagger individually */}
-      <Reveal
-        variant="cards"
-        delay={1}
-        stagger
-        className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto"
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-lg mx-auto"
+        dir="rtl"
       >
         {config.program.map((p, i) => (
-          <div
+          <LuxeCard
             key={i}
-            className="p-4 rounded-xl border border-gold/30 bg-white/40 text-start"
+            index={i}
+            dense
+            contentClassName="flex items-center gap-4 text-start"
           >
-            <div className="font-cinzel text-xl text-gold-deep tabular-nums">{p.time}</div>
-            {LANGS.map((l) => (
-              <div key={l} data-lang={l} className="text-base text-[#4a3e2c] mt-0.5">
-                {p.name[l]}
-              </div>
-            ))}
-          </div>
+            <span
+              aria-hidden
+              className="font-cinzel text-2xl leading-none text-gold-deep tabular-nums"
+            >
+              {p.time}
+            </span>
+            {/* gold hairline divider — the single jewel line between hour and rite */}
+            <span
+              aria-hidden
+              className="h-9 w-px shrink-0 bg-linear-to-b from-transparent via-gold/55 to-transparent"
+            />
+            <div className="font-amiri text-lg leading-snug text-[#3a3020]">
+              {p.name.ar}
+            </div>
+          </LuxeCard>
         ))}
-      </Reveal>
+      </div>
 
       <Reveal variant="rise" delay={2}>
-        <div className="mt-5">
-          <div className="font-cinzel text-[11px] tracking-[5px] text-gold-deep/80">
-            {LANGS.map((l) => (
-              <span key={l} data-lang={l}>{lbl.dressCode[l]}</span>
-            ))}
+        <div className="mt-7">
+          <div className="font-amiri text-base tracking-[2px] text-gold-deep/80">
+            {lbl.dressCode.ar}
           </div>
         </div>
       </Reveal>

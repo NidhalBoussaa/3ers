@@ -78,6 +78,7 @@ const assets = z.object({
   landingVideo: z.string().optional(),
   music: z.string().default("/music.mp3"),
   photo: z.string().optional(),
+  venuePhoto: z.string().optional(),
   logoGold: z.string().default("/logo-gold.png"),
 });
 
@@ -98,6 +99,7 @@ const labels = z.object({
   addToCalendar: localized,
   directions: localized,
   viewMap: localized,
+  venueLabel: localized.optional(),
   ourStory: localized,
   ourMoments: localized,
   program: localized,
@@ -139,6 +141,17 @@ export const WeddingConfigSchema = z.object({
   gallery: z.array(z.string()).default([]),
   features,
   contact: z.object({ email: z.email().or(z.string()) }),
+  /** The invitation studio behind the site — "build your own" contact block. */
+  studio: z.object({
+    name: z.string().default("استوديو الدعوات"),
+    tagline: localized.default({
+      fr: "Créez votre propre invitation de mariage",
+      ar: "صمّم دعوة زفافك الخاصة",
+       en: "Design your own wedding invitation",
+    }),
+    instagram: z.string().default("@your_studio"),
+    email: z.string().default("celebriocontact@gmail.com"),
+  }),
   assets,
   shareText: localized,
 });

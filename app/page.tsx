@@ -4,11 +4,13 @@ import { I18nProvider } from "@/lib/i18n";
 import { WeddingExperience } from "@/components/wedding-experience";
 import { BismillahSection } from "@/components/sections/bismillah";
 import { NamesSection } from "@/components/sections/names";
-import { DetailCards } from "@/components/sections/detail-cards";
+import { DateCard, TimeCard } from "@/components/sections/detail-cards";
 import { StoryTimeline } from "@/components/sections/story-timeline";
 import { ProgramSection } from "@/components/sections/program";
 import { ClosingSection } from "@/components/sections/closing";
+import { ContactStudio } from "@/components/sections/contact-studio";
 import { CouplePhoto } from "@/components/sections/couple-photo";
+import { Venue } from "@/components/sections/venue";
 import { LandingHero } from "@/components/sections/landing-hero";
 import { Countdown } from "@/components/countdown";
 import { CalendarAndDirections } from "@/components/calendar-button";
@@ -18,6 +20,8 @@ import { Gallery } from "@/components/gallery";
 import { Ornament } from "@/components/ornament";
 import { Reveal } from "@/components/reveal";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
+import { ScrollFlowers } from "@/components/scroll-flowers";
+import { LandingGate } from "@/components/landing-gate";
 import type { Lang } from "@/lib/schema";
 
 const LANGS: Lang[] = ["fr", "ar", "en"];
@@ -46,18 +50,43 @@ export default async function Page({
       <WeddingExperience skipIntro={skipIntro} />
 
       <SmoothScrollProvider>
+      <LandingGate>
       <main className="relative z-[3]">
         <LandingHero />
         <div
-          className="stage"
+          className="stage relative"
           style={{
-            background: `
-              radial-gradient(circle at 18% 8%, rgba(201,164,76,.10), transparent 42%),
-              radial-gradient(circle at 82% 92%, rgba(201,164,76,.10), transparent 42%),
-              linear-gradient(180deg, #fbf8f0 0%, var(--cream) 40%, #f4eedd 100%)
-            `,
+            background:
+              "linear-gradient(180deg, #fbf8f0 0%, var(--cream) 40%, #f4eedd 100%)",
           }}
         >
+          {/* Soft layered-dune backdrop — sand-wave bands sweeping across the
+              lower-right, in the cream→champagne palette. Pure SVG, so it stays
+              crisp at any size and ships ~0 KB. Sits behind all content. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1680' height='1050' viewBox='0 0 1680 1050' preserveAspectRatio='xMidYMid slice'%3E%3Crect width='1680' height='1050' fill='%23f7f1e6'/%3E%3Cpath d='M0,1050 V470 C300,430 560,560 900,640 C1180,705 1430,690 1680,640 V1050 Z' fill='%23f1e8d6'/%3E%3Cpath d='M0,1050 V560 C320,520 600,640 940,710 C1220,768 1450,758 1680,720 V1050 Z' fill='%23ece1cc'/%3E%3Cpath d='M0,1050 V660 C360,628 660,728 1000,788 C1260,834 1470,828 1680,800 V1050 Z' fill='%23e6dac1'/%3E%3Cpath d='M0,1050 V770 C400,742 720,824 1060,872 C1300,906 1500,902 1680,884 V1050 Z' fill='%23e0d2b4'/%3E%3Cpath d='M0,1050 V880 C440,858 780,918 1120,952 C1360,976 1520,974 1680,962 V1050 Z' fill='%23dccbaa'/%3E%3C/svg%3E\")",
+              backgroundSize: "cover",
+              backgroundPosition: "center bottom",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+          {/* Gold glows kept from the original theme, layered over the dunes. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 z-0"
+            style={{
+              background:
+                "radial-gradient(circle at 18% 8%, rgba(201,164,76,.10), transparent 42%), radial-gradient(circle at 82% 92%, rgba(201,164,76,.10), transparent 42%)",
+            }}
+          />
+          {/* Lottie flower accents — scroll-triggered, ambient. */}
+          <ScrollFlowers />
+          {/* Content above the backdrop layers. */}
+          <div className="relative z-[1]">
           <div className="frame relative mx-auto max-w-[720px] px-5 sm:px-7 pt-[70px] pb-[90px] text-center">
             {/* gold vertical rails on either side of the frame */}
             <div
@@ -91,7 +120,11 @@ export default async function Page({
             </Reveal>
             <Countdown />
 
-            <DetailCards config={config} />
+            <DateCard config={config} />
+
+            <Venue config={config} />
+
+            <TimeCard config={config} />
 
             <Ornament />
 
@@ -151,9 +184,15 @@ export default async function Page({
             )}
 
             <ClosingSection config={config} />
+
+            <Ornament />
+
+            <ContactStudio config={config} />
+          </div>
           </div>
         </div>
       </main>
+      </LandingGate>
       </SmoothScrollProvider>
     </I18nProvider>
   );

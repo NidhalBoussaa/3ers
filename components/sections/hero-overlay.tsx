@@ -199,22 +199,22 @@ export function HeroOverlay() {
 
       <div
         ref={dateRef}
-        className="anim-init mt-7 font-cinzel text-[clamp(13px,3.4vw,17px)] tracking-[3px] text-[#f6ecd2]"
-        style={{ textShadow: "0 2px 16px rgba(0,0,0,.6)" }}
+        className="anim-init mt-7 font-cinzel text-[clamp(17px,4.6vw,23px)] tracking-[3px] text-[#fdfbf4]"
+        style={{ textShadow: "0 2px 16px rgba(0,0,0,.7)" }}
       >
         {dateText}
       </div>
       <div
         ref={timeRef}
-        className="anim-init mt-2 font-cinzel text-[clamp(11px,2.8vw,13px)] tracking-[4px] text-[#e7cf8e]"
-        style={{ textShadow: "0 2px 14px rgba(0,0,0,.6)" }}
+        className="anim-init mt-2 font-cinzel text-[clamp(13px,3.4vw,16px)] tracking-[4px] text-[#f8f1de]"
+        style={{ textShadow: "0 2px 14px rgba(0,0,0,.7)" }}
       >
         {timeText}
       </div>
       <div
         ref={venueRef}
-        className="anim-init mt-4 font-marcellus text-[clamp(12px,3vw,15px)] tracking-[2px] text-[#f6ecd2]/90"
-        style={{ textShadow: "0 2px 14px rgba(0,0,0,.6)" }}
+        className="anim-init mt-4 font-marcellus text-[clamp(16px,4vw,20px)] tracking-[2px] text-[#fdfbf4]/95"
+        style={{ textShadow: "0 2px 14px rgba(0,0,0,.7)" }}
       >
         {venueText}
       </div>

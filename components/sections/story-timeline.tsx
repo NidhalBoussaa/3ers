@@ -1,10 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
-import type { WeddingConfig, Lang } from "@/lib/schema";
-import { useI18n } from "@/lib/i18n";
+import type { WeddingConfig } from "@/lib/schema";
 import { gsap } from "@/lib/gsap";
-
-const LANGS: Lang[] = ["fr", "ar", "en"];
 
 const ICONS: Record<"heart" | "ring" | "star", React.ReactNode> = {
   heart: <path d="M12 21s-7-5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5-7 10-7 10z" />,
@@ -18,7 +15,6 @@ const ICONS: Record<"heart" | "ring" | "star", React.ReactNode> = {
 };
 
 export function StoryTimeline({ config }: { config: WeddingConfig }) {
-  const { lang } = useI18n();
   const lbl = config.i18n.labels;
   const rootRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,27 +46,30 @@ export function StoryTimeline({ config }: { config: WeddingConfig }) {
         const list = root.querySelector(".tl-list");
         if (list) gsap.set(list, { opacity: 1 });
 
-        // each line segment draws (scaleY) scrubbed to scroll
-        root.querySelectorAll<HTMLElement>(".tl-line").forEach((line) => {
+        // ONE continuous spine: the gold line fills from the top down, scrubbed
+        // to scroll across the whole list, and stays filled once complete.
+        const fill = root.querySelector<HTMLElement>(".tl-fill");
+        if (fill && list) {
           gsap.fromTo(
-            line,
+            fill,
             { scaleY: 0 },
             {
               scaleY: 1,
               ease: "none",
               transformOrigin: "top center",
               scrollTrigger: {
-                trigger: line,
-                start: "top 80%",
-                end: "bottom 60%",
-                scrub: true,
+                trigger: list,
+                start: "top 72%",
+                // finish when the last node reaches mid-viewport, then it holds
+                end: "bottom 70%",
+                scrub: 0.6,
               },
             },
           );
-        });
+        }
 
-        // node circles pop + content slides in from the start side (RTL-aware)
-        const fromX = lang === "ar" ? 26 : -26;
+        // node circles pop + content slides in from the start side (RTL → right)
+        const fromX = 26;
         root.querySelectorAll<HTMLElement>(".tl-item").forEach((item) => {
           const node = item.querySelector(".tl-node");
           const body = item.querySelector(".tl-body");
@@ -97,38 +96,40 @@ export function StoryTimeline({ config }: { config: WeddingConfig }) {
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
         gsap.set(root.querySelectorAll(".tl-header, .tl-list"), { opacity: 1 });
-        gsap.set(root.querySelectorAll<HTMLElement>(".tl-line"), { scaleY: 1 });
+        gsap.set(root.querySelectorAll<HTMLElement>(".tl-fill"), { scaleY: 1 });
       });
     }, root);
 
     return () => ctx.revert();
-  }, [lang]);
+  }, []);
 
   return (
-    <div ref={rootRef}>
-      <div className="tl-header anim-init font-cinzel text-[11px] tracking-[5px] text-gold-deep/80 mb-3">
-        {LANGS.map((l) => (
-          <span key={l} data-lang={l}>{lbl.ourStory[l]}</span>
-        ))}
+    <div ref={rootRef} dir="rtl">
+      <div className="tl-header anim-init font-amiri text-base tracking-[2px] text-gold-deep/80 mb-5">
+        {lbl.ourStory.ar}
       </div>
-      <div className="tl-list anim-init max-w-lg mx-auto">
+      <div className="tl-list anim-init relative max-w-lg mx-auto">
+        {/* continuous spine — sits under the node column (start edge: right in RTL).
+            22px = node centre; the column is 44px wide. Track is faint; fill is gold. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute top-5 bottom-5 w-px bg-gold/20 start-[22px]"
+        />
+        <span
+          aria-hidden
+          className="tl-fill pointer-events-none absolute top-5 bottom-5 w-px bg-gold origin-top start-[22px]"
+          style={{ transform: "scaleY(0)" }}
+        />
         {config.story.map((s, i) => (
-          <div key={i} className="tl-item flex gap-4 items-start text-start py-3.5 relative">
-            <div className="tl-node flex-none size-11 rounded-full border border-gold flex items-center justify-center text-gold bg-white/50">
+          <div key={i} className="tl-item relative flex gap-4 items-start text-start py-3.5">
+            <div className="tl-node relative z-[1] flex-none size-11 rounded-full border border-gold flex items-center justify-center text-gold bg-cream">
               <svg viewBox="0 0 24 24" className="size-5 fill-none stroke-current" strokeWidth={1.4} aria-hidden="true">
                 {ICONS[s.icon]}
               </svg>
             </div>
-            {i < config.story.length - 1 && (
-              <div className="tl-line absolute top-11 -bottom-3.5 w-px bg-gold/40" style={{ left: 22 }} />
-            )}
             <div className="tl-body flex-1">
-              {LANGS.map((l) => (
-                <div key={l} data-lang={l}>
-                  <div className="font-cinzel text-[13px] tracking-[2px] text-gold-deep">{s.title[l]}</div>
-                  <div className="text-base sm:text-lg text-[#4a3e2c] leading-snug">{s.text[l]}</div>
-                </div>
-              ))}
+              <div className="font-amiri text-lg tracking-[1px] text-gold-deep">{s.title.ar}</div>
+              <div className="font-amiri text-lg text-[#4a3e2c] leading-snug">{s.text.ar}</div>
             </div>
           </div>
         ))}
