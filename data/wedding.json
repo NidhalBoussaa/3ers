@@ -1,0 +1,127 @@
+{
+  "couple": {
+    "groom": { "first": "Fahmi", "last": "Touzi" },
+    "bride": { "first": "Esmiralda", "last": "Ben Aïcha" },
+    "monogram": "F&E"
+  },
+  "date": {
+    "iso": "2026-09-13T21:00:00+01:00",
+    "endIso": "2026-09-14T02:00:00+01:00",
+    "display": {
+      "fr": "Dimanche 13 Septembre 2026",
+      "ar": "الأحد 13 سبتمبر 2026",
+      "en": "Sunday, September 13, 2026"
+    },
+    "short": "13 · 09 · 2026",
+    "timeDisplay": {
+      "fr": "À 21:00",
+      "ar": "التاسعة مساءً",
+      "en": "At 9:00 PM"
+    }
+  },
+  "venue": {
+    "name": { "fr": "Salle Mawazine", "ar": "قاعة الموازين", "en": "Mawazine Hall" },
+    "city": { "fr": "Ksar Hellal", "ar": "قصر هلال", "en": "Ksar Hellal" },
+    "mapsQuery": "Salle Mawazine Ksar Hellal"
+  },
+  "theme": {
+    "gold": "#c9a44c",
+    "goldBright": "#f1d894",
+    "goldSoft": "#e7cf8e",
+    "goldDeep": "#8c6d2a",
+    "cream": "#faf6ec",
+    "night": "#0b0805"
+  },
+  "i18n": {
+    "default": "fr",
+    "available": ["fr", "ar", "en"],
+    "labels": {
+      "greeting": { "fr": "Bonjour", "ar": "أهلاً", "en": "Hi" },
+      "invitedTo": { "fr": "VOUS ÊTES CONVIÉS AU MARIAGE DE", "ar": "تتشرفون بحضور حفل زفاف", "en": "YOU ARE INVITED TO THE WEDDING OF" },
+      "verse": "﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ﴾",
+      "verseSign": "صدق الله العظيم",
+      "withGodsBlessing": { "fr": "— AVEC L'AGRÉMENT DE DIEU —", "ar": "— بإذن الله تعالى —", "en": "— WITH GOD'S BLESSING —" },
+      "inviteLead": { "fr": "Nous avons la joie et l'honneur de vous inviter à célébrer notre union", "ar": "يسرّنا ويشرّفنا حضوركم لمشاركتنا أجمل لحظات حياتنا", "en": "We joyfully invite you to celebrate our union" },
+      "ceremonyLead": { "fr": "vous convient à leur cérémonie de mariage", "ar": "ويدعوانكم لحضور حفل زفافهما", "en": "request the honour of your presence at their wedding" },
+      "daysLeft": { "fr": "JOURS RESTANTS", "ar": "الأيام المتبقية", "en": "DAYS LEFT" },
+      "cdLabels": {
+        "fr": ["JOURS", "HEURES", "MIN", "SEC"],
+        "ar": ["أيام", "ساعات", "دقائق", "ثواني"],
+        "en": ["DAYS", "HOURS", "MIN", "SEC"]
+      },
+      "addToCalendar": { "fr": "AJOUTER AU CALENDRIER", "ar": "أضف إلى التقويم", "en": "ADD TO CALENDAR" },
+      "directions": { "fr": "ITINÉRAIRE", "ar": "الاتجاهات", "en": "DIRECTIONS" },
+      "viewMap": { "fr": "VOIR LA CARTE", "ar": "عرض الخريطة", "en": "VIEW MAP" },
+      "ourStory": { "fr": "NOTRE HISTOIRE", "ar": "قصتنا", "en": "OUR STORY" },
+      "ourMoments": { "fr": "NOS PLUS BEAUX MOMENTS", "ar": "أجمل لحظاتنا", "en": "OUR FAVOURITE MOMENTS" },
+      "program": { "fr": "DÉROULEMENT DE LA SOIRÉE", "ar": "برنامج الحفل", "en": "EVENING PROGRAM" },
+      "dressCode": { "fr": "CODE VESTIMENTAIRE · ÉLÉGANT", "ar": "الزي · أنيق", "en": "DRESS CODE · ELEGANT" },
+      "rsvp": { "fr": "RSVP", "ar": "تأكيد الحضور", "en": "RSVP" },
+      "confirmAttendance": { "fr": "Confirmez votre présence", "ar": "أكّدوا حضوركم", "en": "Confirm your attendance" },
+      "fullName": { "fr": "Nom complet", "ar": "الاسم الكامل", "en": "Full name" },
+      "willAttend": { "fr": "JE SERAI PRÉSENT(E)", "ar": "سأحضر", "en": "I WILL ATTEND" },
+      "wontAttend": { "fr": "EMPÊCHÉ(E)", "ar": "معتذر", "en": "CAN'T MAKE IT" },
+      "person": { "fr": "personne", "ar": "شخص", "en": "person" },
+      "people": { "fr": "personnes", "ar": "أشخاص", "en": "people" },
+      "messagePlaceholder": { "fr": "Un petit mot (optionnel)", "ar": "كلمة جميلة (اختياري)", "en": "A short message (optional)" },
+      "send": { "fr": "ENVOYER", "ar": "إرسال", "en": "SEND" },
+      "thanksAttend": { "fr": "Merci {name} ! On a hâte 💛", "ar": "شكرًا {name}! في انتظاركم 💛", "en": "Thank you {name}! Can't wait 💛" },
+      "thanksNoAttend": { "fr": "Merci {name}, vous nous manquerez", "ar": "شكرًا {name}، ستفتقدكم", "en": "Thank you {name}, you'll be missed" },
+      "guestbook": { "fr": "LIVRE D'OR · VOS VŒUX", "ar": "سجل التهاني", "en": "GUESTBOOK · WISHES" },
+      "yourName": { "fr": "Votre nom", "ar": "اسمك", "en": "Your name" },
+      "yourWish": { "fr": "Votre vœu", "ar": "دعاؤكم وتهانيكم", "en": "Your wish" },
+      "postWish": { "fr": "PUBLIER MON VŒU", "ar": "انشر تهنئتك", "en": "POST WISH" },
+      "emptyWishes": { "fr": "Soyez le premier à laisser un vœu ✨", "ar": "كن أول من يكتب تهنئة ✨", "en": "Be the first to leave a wish ✨" },
+      "closing": { "fr": "Votre présence sera le plus beau<br/>des cadeaux", "ar": "حضوركم أجمل هدية لنا", "en": "Your presence is the<br/>greatest gift" },
+      "share": { "fr": "Partager l'invitation", "ar": "شارك الدعوة", "en": "Share the invitation" },
+      "copy": { "fr": "Copier", "ar": "نسخ", "en": "Copy" }
+    }
+  },
+  "story": [
+    {
+      "icon": "heart",
+      "title": { "fr": "LA RENCONTRE", "ar": "اللقاء", "en": "WE MET" },
+      "text": { "fr": "Le jour où tout a commencé", "ar": "اليوم الذي بدأ فيه كل شيء", "en": "The day it all began" }
+    },
+    {
+      "icon": "ring",
+      "title": { "fr": "LES FIANÇAILLES", "ar": "الخطوبة", "en": "ENGAGEMENT" },
+      "text": { "fr": "Une promesse pour la vie", "ar": "وعدٌ مدى الحياة", "en": "A promise for life" }
+    },
+    {
+      "icon": "star",
+      "title": { "fr": "LE GRAND JOUR", "ar": "اليوم الكبير", "en": "THE BIG DAY" },
+      "text": { "fr": "13 Septembre 2026", "ar": "13 سبتمبر 2026", "en": "September 13, 2026" }
+    }
+  ],
+  "program": [
+    { "time": "21:00", "name": { "fr": "Réception", "ar": "الاستقبال", "en": "Reception" } },
+    { "time": "22:00", "name": { "fr": "Dîner", "ar": "العشاء", "en": "Dinner" } },
+    { "time": "23:00", "name": { "fr": "Cérémonie & Gâteau", "ar": "المراسم والكعكة", "en": "Ceremony & Cake" } },
+    { "time": "00:00", "name": { "fr": "Soirée dansante", "ar": "سهرة ورقص", "en": "Dancing" } }
+  ],
+  "dressCode": ["#1c2433", "#6b4f2a", "#c9a44c", "#e7dcc4"],
+  "gallery": [],
+  "features": {
+    "music": true,
+    "video": true,
+    "guestbook": true,
+    "rsvp": true,
+    "gallery": true,
+    "share": true,
+    "photo": false,
+    "calendar": true
+  },
+  "contact": { "email": "votre-email@example.com" },
+  "assets": {
+    "introVideo": "/Esmiralda.mp4",
+    "landingVideo": "/Landing.mp4",
+    "music": "/music.mp3",
+    "logoGold": "/logo-gold.png"
+  },
+  "shareText": {
+    "fr": "Vous êtes invités au mariage de Fahmi & Esmiralda — 13 septembre 2026",
+    "ar": "أنتم مدعوون إلى حفل زفاف فهمي و إسميرالدا — 13 سبتمبر 2026",
+    "en": "You're invited to the wedding of Fahmi & Esmiralda — September 13, 2026"
+  }
+}

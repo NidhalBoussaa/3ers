@@ -1,0 +1,231 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-heading: var(--font-cinzel-deco), serif;
+  --font-cormorant: var(--font-cormorant), serif;
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-cinzel-deco: var(--font-cinzel-deco), serif;
+  --font-marcellus: var(--font-marcellus), serif;
+  --font-vibes: var(--font-vibes), cursive;
+  --font-amiri: var(--font-amiri), serif;
+
+  /* gold theme */
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-night: var(--night);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* wedding palette */
+  --gold: #c9a44c;
+  --gold-bright: #f1d894;
+  --gold-soft: #e7cf8e;
+  --gold-deep: #8c6d2a;
+  --champagne: #f7f1e3;
+  --cream: #faf6ec;
+  --ink: #2c2114;
+  --ink-soft: #5b4e3a;
+  --night: #0b0805;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+
+  /* shadcn neutrals */
+  --background: var(--cream);
+  --foreground: oklch(0.18 0.02 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 60);
+  --popover: oklch(0.99 0.01 80);
+  --popover-foreground: oklch(0.18 0.02 60);
+  --primary: oklch(0.55 0.11 75);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0.02 80);
+  --secondary-foreground: oklch(0.3 0.04 70);
+  --muted: oklch(0.94 0.02 80);
+  --muted-foreground: oklch(0.45 0.02 70);
+  --accent: oklch(0.92 0.03 80);
+  --accent-foreground: oklch(0.3 0.04 70);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.85 0.04 80 / 0.5);
+  --input: oklch(0.85 0.04 80 / 0.5);
+  --ring: oklch(0.65 0.08 75);
+  --radius: 0.625rem;
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.18 0.02 60);
+  --sidebar-primary: oklch(0.55 0.11 75);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.92 0.03 80);
+  --sidebar-accent-foreground: oklch(0.3 0.04 70);
+  --sidebar-border: oklch(0.85 0.04 80 / 0.5);
+  --sidebar-ring: oklch(0.65 0.08 75);
+}
+
+.dark {
+  --background: var(--night);
+  --foreground: oklch(0.98 0 0);
+  --card: oklch(0.18 0.02 60);
+  --card-foreground: oklch(0.98 0 0);
+  --popover: oklch(0.2 0.02 60);
+  --popover-foreground: oklch(0.98 0 0);
+  --primary: oklch(0.75 0.13 80);
+  --primary-foreground: oklch(0.15 0.02 60);
+  --secondary: oklch(0.25 0.02 60);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.25 0.02 60);
+  --muted-foreground: oklch(0.7 0.03 70);
+  --accent: oklch(0.3 0.05 75);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.7 0.1 75);
+  --sidebar: oklch(0.18 0.02 60);
+  --sidebar-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(0.75 0.13 80);
+  --sidebar-primary-foreground: oklch(0.15 0.02 60);
+  --sidebar-accent: oklch(0.3 0.05 75);
+  --sidebar-accent-foreground: oklch(0.98 0 0);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.7 0.1 75);
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  html { @apply font-sans; }
+  body { @apply bg-night text-foreground antialiased; }
+  ::selection { background: var(--gold); color: #fff; }
+  img { @apply max-w-full h-auto; }
+}
+
+/* ===== Animation FOUC guard ===== */
+/* GSAP clears this once a reveal trigger is set; reduced-motion clears it too. */
+.anim-init { opacity: 0; }
+
+/* ===== Lenis smooth scroll ===== */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ===== Ornament dividers (stroke draw — GSAP-driven) ===== */
+.orn { display: block; margin: 2rem auto; width: 200px; max-width: 70%; }
+.orn line, .orn path {
+  stroke: var(--gold); stroke-width: 1.1; fill: none;
+  stroke-dasharray: 300; stroke-dashoffset: 300;
+}
+.orn .diamond { fill: var(--gold); stroke: none; opacity: 0; }
+
+/* ===== Gold gradient text (names) ===== */
+.gold-text {
+  background: linear-gradient(165deg, #e8c977 0%, #a9842f 45%, #7c5f23 60%, #d8b96a 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.4));
+}
+.gold-text-soft {
+  background: linear-gradient(180deg, #f0d68f, #c9a44c);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ===== Intro orb ===== */
+@keyframes pulseGlow {
+  0%,100% { box-shadow: 0 0 0 0 rgba(241,216,148,.35), inset 0 0 22px rgba(241,216,148,.18); }
+  50%     { box-shadow: 0 0 0 18px rgba(241,216,148,0), inset 0 0 30px rgba(241,216,148,.32); }
+}
+@keyframes ringExpand {
+  0%   { transform: scale(1);   opacity: .6; }
+  100% { transform: scale(1.6); opacity: 0;   }
+}
+
+/* ===== Petal floaters ===== */
+.petal { position: fixed; top: -40px; z-index: 2; pointer-events: none; opacity: 0; will-change: transform; }
+.petal svg { display: block; }
+
+/* ===== Language visibility (server-rendered triplets) ===== */
+[data-lang] { display: none; }
+body.lang-fr [data-lang="fr"] { display: revert; }
+body.lang-ar [data-lang="ar"] { display: revert; }
+body.lang-en [data-lang="en"] { display: revert; }
+body.lang-ar .frame { direction: rtl; }
+body.lang-ar .tl-item { text-align: right; }
+body.lang-ar .tl-line { left: auto; right: 22px; }
+
+/* ===== Buttons (calendar / directions) ===== */
+.btn-gold {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer; margin: 8px 6px 0;
+  padding: 13px 26px; border: 1px solid var(--gold); border-radius: 40px; background: transparent;
+  font-family: var(--font-cinzel), serif; font-size: 11px; letter-spacing: 2px; color: var(--gold-deep);
+  text-decoration: none; transition: .4s; position: relative; overflow: hidden;
+}
+.btn-gold > * { position: relative; z-index: 2; }
+.btn-gold::before {
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: var(--gold); transform: translateX(-101%); transition: transform .45s ease;
+}
+.btn-gold:hover { color: #fff; }
+.btn-gold:hover::before { transform: translateX(0); }
+.btn-gold:focus-visible { outline: 2px solid var(--gold-bright); outline-offset: 3px; }
+
+/* ===== Equaliser (music button) ===== */
+.eq { display: flex; gap: 2px; align-items: flex-end; height: 16px; }
+.eq i { width: 2.5px; background: var(--gold-deep); border-radius: 2px; animation: eq .9s ease-in-out infinite; }
+.eq i:nth-child(2) { animation-delay: .2s; }
+.eq i:nth-child(3) { animation-delay: .4s; }
+.eq i:nth-child(4) { animation-delay: .15s; }
+@keyframes eq { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+.eq-paused i { animation-play-state: paused; height: 5px !important; }
+
+/* ===== Reduced motion =====
+   GSAP handles its own reduced-motion via gsap.matchMedia(); this block covers
+   the non-GSAP animations (petals, intro keyframes, .btn-gold sweep, eq bars)
+   and guarantees content is visible even before GSAP hydrates. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .anim-init { opacity: 1 !important; }
+  .orn line, .orn path { stroke-dashoffset: 0; }
+  .orn .diamond { opacity: 1; }
+}

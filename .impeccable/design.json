@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-29T00:00:00.000Z",
+  "title": "Design System: 3ers — Wedding Invitation",
+  "extensions": {
+    "colorMeta": {
+      "gold": { "role": "primary", "displayName": "Wedding Gold", "canonical": "#c9a44c", "tonalRamp": ["#241b08", "#3d2f10", "#5c481c", "#8c6d2a", "#b08e3c", "#c9a44c", "#e7cf8e", "#f7eccb"] },
+      "gold-bright": { "role": "primary", "displayName": "Gold Bright (Catch-light)", "canonical": "#f1d894", "tonalRamp": ["#3a2f12", "#5c4a1f", "#856b2d", "#b08f43", "#d4b463", "#f1d894", "#f8e9c2", "#fdf6e4"] },
+      "gold-deep": { "role": "primary", "displayName": "Gold Deep (Readable Gold)", "canonical": "#8c6d2a", "tonalRamp": ["#241b08", "#3d2f10", "#5c481c", "#74591f", "#8c6d2a", "#a98a3e", "#c9a44c", "#e7cf8e"] },
+      "champagne": { "role": "neutral", "displayName": "Champagne", "canonical": "#f7f1e3", "tonalRamp": ["#3a352a", "#5c5546", "#857c66", "#b0a88f", "#d8d0bb", "#efe9da", "#f7f1e3", "#fdfbf5"] },
+      "cream": { "role": "neutral", "displayName": "Cream (The Stage)", "canonical": "#faf6ec", "tonalRamp": ["#3a352a", "#5c5646", "#857d66", "#b0a88f", "#ddd6c3", "#f0ead9", "#faf6ec", "#fffdf8"] },
+      "ink": { "role": "neutral", "displayName": "Warm Ink", "canonical": "#2c2114", "tonalRamp": ["#16110a", "#221a10", "#2c2114", "#473721", "#5b4e3a", "#8a7b5f", "#b8a988", "#e3d9c2"] },
+      "night": { "role": "neutral", "displayName": "Night (Candlelit Dark)", "canonical": "#0b0805", "tonalRamp": ["#0b0805", "#181208", "#2a2010", "#3f3018", "#5c4724", "#8c6d2a", "#c9a44c", "#f1d894"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display / Names", "purpose": "The couple's first names, set as gold leaf — the emotional peak. Cinzel Decorative, uppercase." },
+      "script": { "displayName": "Script", "purpose": "The ampersand and intimate connective phrases. Great Vibes, Gold Deep." },
+      "headline": { "displayName": "Label / Eyebrow", "purpose": "Section labels, surname line, button text. Cinzel, 5px tracking, uppercase, Gold Deep." },
+      "arabic": { "displayName": "Arabic", "purpose": "All Arabic strings, RTL, Amiri, line-height 1.9. Equal billing with Latin." },
+      "body": { "displayName": "Body", "purpose": "Running invitation prose on cream, often italic. Cormorant Garamond, measure capped ~720px column." }
+    },
+    "shadows": [
+      { "name": "card-rest", "value": "0 10px 30px -18px rgba(140,109,42,0.6)", "purpose": "Warm candlelight pooling under a detail card at rest. Never a gray drop shadow." },
+      { "name": "card-hover", "value": "0 18px 40px -18px rgba(140,109,42,0.65)", "purpose": "Card lifts toward the light on hover (paired with translateY(-6px))." },
+      { "name": "floater", "value": "0 10px 15px -3px rgba(0,0,0,0.1)", "purpose": "Detaches fixed floaters (lang pill, dock) from the scroll." }
+    ],
+    "motion": [
+      { "name": "reveal-ease", "value": "cubic-bezier(0.2, 0.7, 0.2, 1)", "purpose": "Exponential ease-out for scroll reveals. Slow (1s), no bounce." },
+      { "name": "button-ease", "value": "0.4s ease", "purpose": "Default easing for button/link state transitions — slow and intentional." },
+      { "name": "ornament-draw", "value": "stroke-dashoffset 1.6s ease", "purpose": "Gold ornament dividers draw their own strokes on reveal." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "column-max", "value": "720px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Gold Outline Button",
+      "kind": "button",
+      "refersTo": "button-gold",
+      "description": "Calendar / directions actions. Gold fill sweeps in from the left on hover; text turns white.",
+      "html": "<a class=\"ds-btn-gold\" href=\"#\"><span>ADD TO CALENDAR</span></a>",
+      "css": ".ds-btn-gold { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border: 1px solid #c9a44c; border-radius: 9999px; background: transparent; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: #8c6d2a; text-decoration: none; position: relative; overflow: hidden; transition: color 0.4s ease; } .ds-btn-gold > * { position: relative; z-index: 2; } .ds-btn-gold::before { content: ''; position: absolute; inset: 0; z-index: 1; background: #c9a44c; transform: translateX(-101%); transition: transform 0.45s ease; } .ds-btn-gold:hover { color: #fff; } .ds-btn-gold:hover::before { transform: translateX(0); } .ds-btn-gold:focus-visible { outline: 2px solid #f1d894; outline-offset: 3px; }"
+    },
+    {
+      "name": "Primary Gradient Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The RSVP commit action — the one place gold fills a control. The single allowed gleam in its viewport.",
+      "html": "<button class=\"ds-btn-primary\">SEND</button>",
+      "css": ".ds-btn-primary { height: 48px; padding: 0 28px; border: none; border-radius: 9999px; color: #fff; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 3px; cursor: pointer; background: linear-gradient(120deg, #8c6d2a, #c9a44c, #f1d894); transition: filter 0.4s ease, transform 0.4s ease; } .ds-btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #f1d894; outline-offset: 3px; }"
+    },
+    {
+      "name": "Detail Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "One of the three at-a-glance facts (date/venue/time). A translucent pane of light over the warm stage, lifting on hover.",
+      "html": "<div class=\"ds-card\"><svg class=\"ds-card-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><line x1=\"3\" y1=\"9\" x2=\"21\" y2=\"9\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/></svg><div class=\"ds-card-text\">Sunday, September 13, 2026</div></div>",
+      "css": ".ds-card { padding: 24px; border: 1px solid rgba(201,164,76,0.35); border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(250,246,236,0.25)); box-shadow: 0 10px 30px -18px rgba(140,109,42,0.6); text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; } .ds-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -18px rgba(140,109,42,0.65); } .ds-card-icon { width: 40px; height: 40px; margin: 0 auto 12px; fill: none; stroke: #c9a44c; stroke-width: 1.4; } .ds-card-text { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: #3a3020; line-height: 1.35; }"
+    },
+    {
+      "name": "RSVP Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Translucent white field with a gold hairline border. Serif text, gold-deep placeholder.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Full name\" />",
+      "css": ".ds-input { height: 48px; width: 100%; padding: 0 16px; border: 1px solid rgba(201,164,76,0.4); border-radius: 12px; background: rgba(255,255,255,0.6); font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; color: #2c2114; } .ds-input::placeholder { color: rgba(140,109,42,0.5); } .ds-input:focus-visible { outline: 2px solid #f1d894; outline-offset: 2px; border-color: #c9a44c; }"
+    },
+    {
+      "name": "Attendance Toggle",
+      "kind": "chip",
+      "refersTo": "button-primary",
+      "description": "Segmented pill radio. Unselected is gold-outline; selected fills solid gold with white text.",
+      "html": "<div class=\"ds-toggle\"><span class=\"ds-toggle-seg ds-toggle-seg--on\">I WILL ATTEND</span><span class=\"ds-toggle-seg\">CAN'T MAKE IT</span></div>",
+      "css": ".ds-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; } .ds-toggle-seg { height: 48px; line-height: 48px; border: 1px solid rgba(201,164,76,0.4); border-radius: 12px; font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 2px; color: #8c6d2a; text-align: center; cursor: pointer; transition: background 0.3s ease, color 0.3s ease; } .ds-toggle-seg--on { background: #c9a44c; color: #fff; border-color: #c9a44c; }"
+    },
+    {
+      "name": "Language Switcher",
+      "kind": "nav",
+      "refersTo": "button-gold",
+      "description": "Fixed top-right pill toggle, gold-bordered, frosted cream. Active segment fills solid gold.",
+      "html": "<div class=\"ds-lang\"><button class=\"ds-lang-seg ds-lang-seg--on\">FR</button><button class=\"ds-lang-seg\">عربي</button><button class=\"ds-lang-seg\">EN</button></div>",
+      "css": ".ds-lang { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid rgba(201,164,76,0.5); border-radius: 9999px; background: rgba(250,246,236,0.85); backdrop-filter: blur(8px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); } .ds-lang-seg { padding: 6px 12px; border: none; border-radius: 9999px; background: transparent; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px; color: #8c6d2a; cursor: pointer; transition: background 0.3s ease, color 0.3s ease; } .ds-lang-seg--on { background: #c9a44c; color: #fff; } .ds-lang-seg:not(.ds-lang-seg--on):hover { background: rgba(201,164,76,0.1); }"
+    },
+    {
+      "name": "Ornament Divider",
+      "kind": "custom",
+      "refersTo": "gold",
+      "description": "Signature gold linework divider. Strokes draw themselves on reveal; a diamond fades in after.",
+      "html": "<svg class=\"ds-orn\" viewBox=\"0 0 200 16\" aria-hidden=\"true\"><line x1=\"0\" y1=\"8\" x2=\"85\" y2=\"8\"/><path class=\"ds-orn-diamond\" d=\"M100 3 L105 8 L100 13 L95 8 Z\"/><line x1=\"115\" y1=\"8\" x2=\"200\" y2=\"8\"/></svg>",
+      "css": ".ds-orn { display: block; width: 200px; max-width: 70%; margin: 32px auto; } .ds-orn line { stroke: #c9a44c; stroke-width: 1.1; fill: none; } .ds-orn-diamond { fill: #c9a44c; stroke: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gilded Envelope",
+    "overview": "A hand-pressed invitation sealed in gold — a single, continuous, cinematic scroll that opens like an object rather than loads like a page. The world is night and candlelight: a deep near-black entrance gives way to a warm cream stage, lit from the edges by faint gold glows and framed by two hairline gold rails. The personality is couture, ceremonial, intimate — the voice of a fashion house's invitation (Dior/Chanel), not a vendor's product page. Confidence is carried by space and timing, not ornament density. Gold is treated as a precious metal: a name, a hairline, a single seal — never a coat. The system is trilingual at its core: French, Arabic (true RTL, Amiri), and English each get type and rhythm worthy of the language.",
+    "keyCharacteristics": [
+      "Night-to-cream cinematic arc; candlelight, not fluorescence.",
+      "Gold as jewelry — a single gleam, never a surface.",
+      "Generous vertical rhythm; space is the status symbol.",
+      "Centered, framed editorial column (max ~720px) on a warm stage.",
+      "Trilingual first-class typography (Latin serif + Amiri Arabic).",
+      "Slow, choreographed reveal motion with full reduced-motion fallbacks."
+    ],
+    "rules": [
+      { "name": "The \"Gold Is Jewelry, Not Paint\" Rule", "body": "Gold appears as a highlight, a hairline, a name, or a seal — never as a fill across a surface. One gleam reads as precious; a coat reads as cheap. If a viewport has more than one element wearing the full gold gradient, you are painting, not setting a jewel — pull back.", "section": "colors" },
+      { "name": "The Readable-Gold Rule", "body": "Gold text is always Gold Deep (#8c6d2a), never bright gold. Bright gold is for light (glows, focus rings, gradient catch-lights), never for words on cream — it fails contrast.", "section": "colors" },
+      { "name": "The No-Sans Rule", "body": "This invitation has no sans-serif. Every face is a serif or a script. A sans anywhere reads as 'app,' and this is not an app.", "section": "typography" },
+      { "name": "The Equal-Billing Rule", "body": "Arabic is never an afterthought. It gets a true Arabic typeface (Amiri), correct RTL direction and mirroring, and its own line-height — not a Latin layout with the strings swapped.", "section": "typography" },
+      { "name": "The Candlelight-Shadow Rule", "body": "Shadows are warm (gold-brown rgba(140,109,42,…)), tightly negative-spread, and soft. A neutral-gray or hard-edged shadow is forbidden — it would read as a generic web card and break the candlelit world.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep gold as a single gleam per viewport — a name, a hairline, a seal, one filled commit button. ('Gold Is Jewelry, Not Paint.')",
+      "Do set all gold text in Gold Deep (#8c6d2a); reserve bright gold for light (glows, focus rings, gradient catch-lights).",
+      "Do give every language a real typeface — Latin serifs for FR/EN, Amiri + RTL for Arabic. Never swap strings into a Latin layout.",
+      "Do keep shadows warm and candlelit (rgba(140,109,42,…)), soft, and tightly negative-spread.",
+      "Do lean on space and slow, choreographed reveals to carry luxury; protect generous vertical rhythm and the ~720px centered column.",
+      "Do keep cards at rounded-2xl (16px) and reserve them for the three at-a-glance facts only.",
+      "Do ship a calm static fallback for every animation under prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't make it look like a free e-invite maker — no clip-art florals, sticker confetti, cartoon hearts, or drag-and-drop stock layouts. This is the single biggest tell to avoid.",
+      "Don't import corporate / SaaS-landing patterns — no hero-metric blocks, no identical icon-heading-text card grids, no gradient feature heroes, no navy-and-gold fintech palette. This is a celebration, not a product page.",
+      "Don't drift into gold kitsch — no glitter overload, heavy bevels, hard drop shadows, or gold-on-gold-on-gold. Gold is precious because it's rare.",
+      "Don't go cold-minimalist — restraint is not absence of feeling; keep the Maghrebi warmth and ceremony alive.",
+      "Don't introduce a sans-serif anywhere ('The No-Sans Rule'). A sans reads as 'app.'",
+      "Don't over-round (no 24px+ card radii) or use neutral-gray / hard-edged shadows — both read as a generic web template.",
+      "Don't set gold text on bright gold or muted gold-on-cream below 4.5:1; readability is part of the luxury, and the guest list skews older."
+    ]
+  }
+}
