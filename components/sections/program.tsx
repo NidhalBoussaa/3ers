@@ -16,7 +16,12 @@ export function ProgramSection({ config }: { config: WeddingConfig }) {
         className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-lg mx-auto"
         dir="rtl"
       >
-        {config.program.map((p, i) => (
+        {/* Dinner ("العشاء" / "Dîner") hidden for now — filtered out of the
+            program list here. Remove this filter to bring it back; the data
+            still lives in data/wedding.json. */}
+        {config.program
+          .filter((p) => p.name.en !== "Dinner")
+          .map((p, i) => (
           <LuxeCard
             key={i}
             index={i}
@@ -41,6 +46,8 @@ export function ProgramSection({ config }: { config: WeddingConfig }) {
         ))}
       </div>
 
+      {/* Dress-code section (label + colour swatches) hidden for now.
+          Uncomment to restore; the palette still lives in config.dressCode.
       <Reveal variant="rise" delay={2}>
         <div className="mt-7">
           <div className="font-amiri text-base tracking-[2px] text-gold-deep/80">
@@ -48,7 +55,7 @@ export function ProgramSection({ config }: { config: WeddingConfig }) {
           </div>
         </div>
       </Reveal>
-      {/* dress-code swatches pop in sequence */}
+      {/* dress-code swatches pop in sequence * /}
       <Reveal variant="swatch" stagger className="flex gap-2.5 justify-center mt-2.5">
         {config.dressCode.map((c, i) => (
           <span
@@ -59,6 +66,7 @@ export function ProgramSection({ config }: { config: WeddingConfig }) {
           />
         ))}
       </Reveal>
+      */}
     </>
   );
 }
