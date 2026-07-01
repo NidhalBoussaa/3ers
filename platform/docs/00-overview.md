@@ -4,11 +4,11 @@
 
 A production SaaS platform sitting around the existing wedding invitation template. Three surfaces, one shared backend, fully Dockerised.
 
-| Surface | Audience | Purpose |
-|---|---|---|
-| `apps/marketing` | Couples + public | Landing page — converts visitors to clients |
-| `apps/admin` | Internal (Nidhal) | Manage orders, clients, templates, RSVP data |
-| `apps/portal` | Clients (couples) | Configure invitation, track order, view RSVPs |
+| Surface          | Audience          | Purpose                                       |
+| ---------------- | ----------------- | --------------------------------------------- |
+| `apps/marketing` | Couples + public  | Landing page — converts visitors to clients   |
+| `apps/admin`     | Internal (Nidhal) | Manage orders, clients, templates, RSVP data  |
+| `apps/portal`    | Clients (couples) | Configure invitation, track order, view RSVPs |
 
 Existing invitation lives in `apps/invite` (current repo root, migrated into monorepo).
 
@@ -16,14 +16,14 @@ Existing invitation lives in `apps/invite` (current repo root, migrated into mon
 
 ## Infrastructure
 
-| Layer | Choice | Why |
-|---|---|---|
-| Database | PostgreSQL (Docker) | Relational, typed, migrations via SQL |
-| File storage | MinIO (Docker) | S3-compatible, self-hosted, no vendor lock |
-| Auth | NextAuth.js (JWT) | Shared across admin + portal, different roles |
-| Email | Resend | Magic links, order status, notifications |
-| Payments | Stripe Checkout | Invoice + payment link per order |
-| Container | Docker + Compose | All services in one `docker-compose.yml` |
+| Layer        | Choice              | Why                                           |
+| ------------ | ------------------- | --------------------------------------------- |
+| Database     | PostgreSQL (Docker) | Relational, typed, migrations via SQL         |
+| File storage | MinIO (Docker)      | S3-compatible, self-hosted, no vendor lock    |
+| Auth         | NextAuth.js (JWT)   | Shared across admin + portal, different roles |
+| Email        | Resend              | Magic links, order status, notifications      |
+| Payments     | Stripe Checkout     | Invoice + payment link per order              |
+| Container    | Docker + Compose    | All services in one `docker-compose.yml`      |
 
 ---
 

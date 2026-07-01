@@ -1,0 +1,9 @@
+{
+  "extends": "@3ers/config/tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist",
+    "paths": {}
+  },
+  "include": ["src", "drizzle.config.ts"]
+}

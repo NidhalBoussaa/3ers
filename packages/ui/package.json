@@ -1,0 +1,18 @@
+{
+  "name": "@3ers/ui",
+  "version": "0.0.1",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts",
+    "./tailwind.preset": "./tailwind.preset.ts",
+    "./tokens": "./src/tokens.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@3ers/config": "workspace:*",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

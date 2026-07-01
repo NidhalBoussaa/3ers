@@ -1,0 +1,8 @@
+{
+  "extends": "@3ers/config/tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {}
+  },
+  "include": ["src", "tailwind.preset.ts"]
+}
