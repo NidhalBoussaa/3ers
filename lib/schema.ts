@@ -82,6 +82,7 @@ const assets = z.object({
   music: z.string().default("/music.mp3"),
   photo: z.string().optional(),
   venuePhoto: z.string().optional(),
+  venuePhotoWebp: z.string().optional(),
   logoGold: z.string().default("/logo-gold.png"),
 });
 

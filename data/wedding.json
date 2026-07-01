@@ -355,6 +355,7 @@
     "landingPoster": "/Landing.jpg",
     "music": "/music.mp3",
     "venuePhoto": "/mawazine.jpg",
+    "venuePhotoWebp": "/mawazine.webp",
     "logoGold": "/logo-gold.png"
   },
   "shareText": {

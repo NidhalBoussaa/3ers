@@ -81,14 +81,19 @@ export function Venue({ config }: { config: WeddingConfig }) {
           className="anim-init relative overflow-hidden rounded-md p-2.5 shadow-[0_22px_60px_-26px_rgba(140,109,42,.85)]"
           style={{ background: "linear-gradient(145deg, #f3e3b4, #c9a44c)" }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            ref={imgRef}
-            src={src}
-            alt={`${config.venue.name.ar} · ${config.venue.city.ar}`}
-            loading="lazy"
-            className="block w-full rounded-sm will-change-transform"
-          />
+          <picture>
+            {config.assets.venuePhotoWebp && (
+              <source srcSet={config.assets.venuePhotoWebp} type="image/webp" />
+            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              ref={imgRef}
+              src={src}
+              alt={`${config.venue.name.ar} · ${config.venue.city.ar}`}
+              loading="lazy"
+              className="block w-full rounded-sm will-change-transform"
+            />
+          </picture>
           <div className="pointer-events-none absolute inset-[14px] rounded-sm border border-white/55" />
 
           {/* corner brackets — the same L-frame motif as the cards */}
