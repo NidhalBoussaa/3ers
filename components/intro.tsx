@@ -65,15 +65,20 @@ export function Intro({ onDone }: { onDone: () => void }) {
         phase === "fading" ? "opacity-0 invisible pointer-events-none" : ""
       }`}
     >
-      {/* Video — visible from idle as a cinematic still, plays on seal tap */}
+      {/* Video — visible from idle as a cinematic still, plays on seal tap.
+          poster shows the first frame instantly (no black box while the file
+          downloads); WebM is listed first so Chrome/Firefox/Android grab the
+          smaller variant and fall back to MP4 on Safari. */}
       <video
         ref={videoRef}
         playsInline
         preload="auto"
         muted
+        poster={config.assets.introPoster}
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover bg-night"
       >
+        <source src={config.assets.introVideoWebm} type="video/webm" />
         <source src={config.assets.introVideo} type="video/mp4" />
       </video>
 

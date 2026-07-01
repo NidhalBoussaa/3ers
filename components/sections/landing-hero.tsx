@@ -13,6 +13,17 @@ export function LandingHero() {
   const ref = useRef<HTMLVideoElement | null>(null);
   const src = config.assets.landingVideo;
 
+  // Warm the film in the background while the intro is still on screen, so it's
+  // already buffered by the time the intro finishes instead of starting from
+  // zero. The intro clip is ~1MB now, so there's ample bandwidth to spare — and
+  // the poster covers the first paint either way. Playback still waits for
+  // introDone so the film never runs during the entrance section.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.load();
+  }, []);
+
   // The landing film must NOT start until the entrance/intro is over.
   // Keep it paused at frame 0 while the intro runs, then play once introDone.
   useEffect(() => {
@@ -26,9 +37,6 @@ export function LandingHero() {
       return;
     }
     v.muted = true;
-    // preload="none" keeps the 15MB film from competing with the intro video
-    // for bandwidth; once the intro is over, kick off the load + play here.
-    v.load();
     v.play().catch(() => {});
   }, [introDone]);
 
@@ -47,10 +55,14 @@ export function LandingHero() {
         playsInline
         muted
         loop
-        preload="none"
+        preload="metadata"
+        poster={config.assets.landingPoster}
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
+        {config.assets.landingVideoWebm && (
+          <source src={config.assets.landingVideoWebm} type="video/webm" />
+        )}
         <source src={src} type="video/mp4" />
       </video>
 

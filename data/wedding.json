@@ -348,7 +348,11 @@
   },
   "assets": {
     "introVideo": "/Esmiralda.mp4",
+    "introVideoWebm": "/Esmiralda.webm",
+    "introPoster": "/Esmiralda.jpg",
     "landingVideo": "/Landing.mp4",
+    "landingVideoWebm": "/Landing.webm",
+    "landingPoster": "/Landing.jpg",
     "music": "/music.mp3",
     "venuePhoto": "/mawazine.jpg",
     "logoGold": "/logo-gold.png"

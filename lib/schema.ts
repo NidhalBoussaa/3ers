@@ -74,8 +74,11 @@ const features = z.object({
 
 const assets = z.object({
   introVideo: z.string().default("/Esmiralda.mp4"),
+  introVideoWebm: z.string().optional(),
   introPoster: z.string().optional(),
   landingVideo: z.string().optional(),
+  landingVideoWebm: z.string().optional(),
+  landingPoster: z.string().optional(),
   music: z.string().default("/music.mp3"),
   photo: z.string().optional(),
   venuePhoto: z.string().optional(),
