@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+  transpilePackages: ["@3ers/db"],
   allowedDevOrigins: ["127.0.0.1", "localhost"],
+  // Multi-zone: invitations are served through the marketing app's domain
+  // (celebrio-digital.com/{slug} proxies here). Namespacing our build assets
+  // under /invite-static lets the marketing app forward them to us without
+  // colliding with its own /_next/* files. See platform/docs/09-domains.md.
+  assetPrefix: "/invite-static",
   async headers() {
     return [
       {

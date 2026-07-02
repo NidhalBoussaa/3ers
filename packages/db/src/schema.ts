@@ -8,6 +8,7 @@ import {
   date,
   jsonb,
   timestamp,
+  unique,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -37,7 +38,8 @@ export const templates = pgTable("templates", {
 
 export const orders = pgTable("orders", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  clientId: uuid("client_id").references(() => users.id),
+  clientId: uuid("client_id").references(() => users.id), // nullable: admin creates order first, links client later
+  slug: text("slug").unique(), // human-readable URL: 3ers.com/fatima-ahmed-2025
   status: text("status").notNull().default("new"),
   // 'new' | 'in_review' | 'config_sent' | 'live' | 'archived'
   templateId: uuid("template_id").references(() => templates.id),
@@ -101,13 +103,17 @@ export const invoices = pgTable("invoices", {
 
 // ─── assets ──────────────────────────────────────────────────────────────────
 
-export const assets = pgTable("assets", {
-  id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
-  orderId: uuid("order_id").references(() => orders.id),
-  type: text("type").notNull(), // 'couple_photo' | 'venue_photo' | 'other'
-  bucket: text("bucket").notNull(),
-  objectKey: text("object_key").notNull(),
-  originalName: text("original_name"),
-  sizeBytes: bigint("size_bytes", { mode: "number" }),
-  uploadedAt: timestamp("uploaded_at", { withTimezone: true }).defaultNow(),
-});
+export const assets = pgTable(
+  "assets",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    orderId: uuid("order_id").references(() => orders.id),
+    type: text("type").notNull(), // 'couple_photo' | 'venue_photo' | 'other'
+    bucket: text("bucket").notNull(),
+    objectKey: text("object_key").notNull(),
+    originalName: text("original_name"),
+    sizeBytes: bigint("size_bytes", { mode: "number" }),
+    uploadedAt: timestamp("uploaded_at", { withTimezone: true }).defaultNow(),
+  },
+  (t) => [unique("assets_order_key_unique").on(t.orderId, t.objectKey)]
+);

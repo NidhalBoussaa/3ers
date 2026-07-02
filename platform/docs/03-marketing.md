@@ -1,6 +1,6 @@
 # Marketing — Landing Page
 
-`apps/marketing` · Next.js App Router · Port 3001
+`apps/marketing` · Next.js App Router · Port 3903
 
 ---
 

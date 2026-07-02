@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   email       text UNIQUE NOT NULL,
   password    text,                        -- hashed; null for magic-link clients
-  role        text NOT NULL,               -- 'admin' | 'client'
+  role        text NOT NULL CHECK (role IN ('admin', 'client')),
   created_at  timestamptz DEFAULT now()
 );
 
@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS templates (
 CREATE TABLE IF NOT EXISTS orders (
   id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   client_id         uuid REFERENCES users(id),
-  status            text NOT NULL DEFAULT 'new',
+  slug              text UNIQUE,
+  status            text NOT NULL DEFAULT 'new' CHECK (status IN ('new','in_review','config_sent','live','archived')),
   template_id       uuid REFERENCES templates(id),
   config_draft      jsonb,
   config_live       jsonb,
@@ -47,10 +48,10 @@ CREATE TABLE IF NOT EXISTS orders (
 CREATE TABLE IF NOT EXISTS rsvp_responses (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id    uuid REFERENCES orders(id),
-  guest_name  text NOT NULL,
+  guest_name  text NOT NULL CHECK (char_length(guest_name) <= 200),
   attending   boolean NOT NULL,
-  meal_pref   text,
-  message     text,
+  meal_pref   text CHECK (char_length(meal_pref) <= 200),
+  message     text CHECK (char_length(message) <= 2000),
   created_at  timestamptz DEFAULT now()
 );
 
@@ -59,8 +60,8 @@ CREATE TABLE IF NOT EXISTS rsvp_responses (
 CREATE TABLE IF NOT EXISTS guestbook_entries (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id    uuid REFERENCES orders(id),
-  name        text NOT NULL,
-  message     text NOT NULL,
+  name        text NOT NULL CHECK (char_length(name) <= 200),
+  message     text NOT NULL CHECK (char_length(message) <= 2000),
   created_at  timestamptz DEFAULT now()
 );
 
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS guestbook_entries (
 CREATE TABLE IF NOT EXISTS messages (
   id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id    uuid REFERENCES orders(id),
-  from_role   text NOT NULL,               -- 'admin' | 'client'
+  from_role   text NOT NULL CHECK (from_role IN ('admin', 'client')),
   body        text NOT NULL,
   read        boolean DEFAULT false,
   created_at  timestamptz DEFAULT now()
@@ -81,8 +82,8 @@ CREATE TABLE IF NOT EXISTS invoices (
   id                    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id              uuid REFERENCES orders(id),
   amount_cents          integer NOT NULL,
-  currency              text DEFAULT 'eur',
-  status                text DEFAULT 'unpaid', -- 'unpaid' | 'paid' | 'refunded'
+  currency              text DEFAULT 'eur' CHECK (currency IN ('eur','usd','gbp','mad')),
+  status                text DEFAULT 'unpaid' CHECK (status IN ('unpaid','paid','refunded')),
   stripe_payment_link   text,
   stripe_session_id     text,
   paid_at               timestamptz,
@@ -94,7 +95,7 @@ CREATE TABLE IF NOT EXISTS invoices (
 CREATE TABLE IF NOT EXISTS assets (
   id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id        uuid REFERENCES orders(id),
-  type            text NOT NULL,           -- 'couple_photo' | 'venue_photo' | 'other'
+  type            text NOT NULL CHECK (type IN ('couple_photo','venue_photo','other')),
   bucket          text NOT NULL,
   object_key      text NOT NULL,
   original_name   text,
@@ -121,8 +122,10 @@ CREATE TRIGGER orders_set_updated_at
 
 CREATE INDEX IF NOT EXISTS orders_client_id_idx       ON orders(client_id);
 CREATE INDEX IF NOT EXISTS orders_status_idx          ON orders(status);
+CREATE UNIQUE INDEX IF NOT EXISTS orders_slug_idx     ON orders(slug) WHERE slug IS NOT NULL;
 CREATE INDEX IF NOT EXISTS rsvp_order_id_idx          ON rsvp_responses(order_id);
 CREATE INDEX IF NOT EXISTS guestbook_order_id_idx     ON guestbook_entries(order_id);
 CREATE INDEX IF NOT EXISTS messages_order_id_idx      ON messages(order_id);
 CREATE INDEX IF NOT EXISTS assets_order_id_idx        ON assets(order_id);
+CREATE UNIQUE INDEX IF NOT EXISTS assets_order_key_unique ON assets(order_id, object_key);
 CREATE INDEX IF NOT EXISTS invoices_order_id_idx      ON invoices(order_id);

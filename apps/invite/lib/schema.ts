@@ -52,13 +52,17 @@ const dates = z.object({
   timeDisplay: localized,
 });
 
+const CSS_COLOR = z
+  .string()
+  .regex(/^#[0-9a-fA-F]{3,8}$|^rgb\(|^rgba\(|^hsl\(|^hsla\(/, "Invalid CSS color");
+
 const theme = z.object({
-  gold: z.string().default("#c9a44c"),
-  goldBright: z.string().default("#f1d894"),
-  goldSoft: z.string().default("#e7cf8e"),
-  goldDeep: z.string().default("#8c6d2a"),
-  cream: z.string().default("#faf6ec"),
-  night: z.string().default("#0b0805"),
+  gold: CSS_COLOR.default("#c9a44c"),
+  goldBright: CSS_COLOR.default("#f1d894"),
+  goldSoft: CSS_COLOR.default("#e7cf8e"),
+  goldDeep: CSS_COLOR.default("#8c6d2a"),
+  cream: CSS_COLOR.default("#faf6ec"),
+  night: CSS_COLOR.default("#0b0805"),
 });
 
 const features = z.object({

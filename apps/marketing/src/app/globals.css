@@ -1,0 +1,437 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Serif-only stack — "The No-Sans Rule" (DESIGN.md). */
+  --font-sans: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-body: var(--font-cormorant), Georgia, serif;
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-deco: var(--font-cinzel-deco), serif;
+  --font-vibes: var(--font-vibes), cursive;
+  --font-amiri: var(--font-amiri), serif;
+
+  /* Brand palette — single source: DESIGN.md / packages/ui tokens. */
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-night: var(--night);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+}
+
+:root {
+  --gold: #c9a44c;
+  --gold-bright: #f1d894;
+  --gold-soft: #e7cf8e;
+  --gold-deep: #8c6d2a;
+  --champagne: #f7f1e3;
+  --cream: #faf6ec;
+  --ink: #2c2114;
+  --ink-soft: #5b4e3a;
+  --night: #0b0805;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+}
+
+@layer base {
+  html {
+    @apply font-body;
+  }
+  /* Decorative absolute layers may poke past the edges without widening the
+     document or showing a side gutter. */
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-night text-cream antialiased;
+  }
+  ::selection {
+    background: var(--gold);
+    color: #fff;
+  }
+  img {
+    @apply h-auto max-w-full;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+/* ===== Animation FOUC guard ===== */
+/* GSAP clears this once a reveal trigger is set; reduced-motion clears it too. */
+.anim-init {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .anim-init {
+    opacity: 1;
+  }
+}
+
+/* ===== Lenis smooth scroll ===== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ===== Ceremonial label (Cinzel, tracked) — the brand's named kicker ===== */
+.lbl {
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+}
+
+/* ===== Ornament divider (stroke draw — GSAP-driven) ===== */
+.orn {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  max-width: 70%;
+}
+.orn line,
+.orn path {
+  stroke: var(--gold);
+  stroke-width: 1.1;
+  fill: none;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+}
+.orn .diamond {
+  fill: var(--gold);
+  stroke: none;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orn line,
+  .orn path {
+    stroke-dashoffset: 0;
+  }
+  .orn .diamond {
+    opacity: 1;
+  }
+}
+
+/* ===== Gold gradient text (names — gold leaf) ===== */
+.gold-text {
+  background: linear-gradient(165deg, #e8c977 0%, #a9842f 45%, #7c5f23 60%, #d8b96a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* On night, the leaf needs its bright face out — flip the ramp. */
+.gold-text-night {
+  background: linear-gradient(170deg, #f4e0a6 0%, #d9b662 38%, #a98836 62%, #edd390 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== Buttons ===== */
+/* Gold outline pill; a gold fill sweeps in from the left on hover. */
+.btn-gold {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--gold);
+  border-radius: 9999px;
+  padding: 15px 32px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-gold::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, var(--gold-deep), var(--gold));
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-gold:hover {
+  color: #fff;
+}
+.btn-gold:hover::before {
+  transform: translateX(0);
+}
+.btn-gold:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+.btn-gold:active {
+  transform: translateY(1px);
+}
+/* On cream surfaces the resting text must hold ≥4.5:1 — use deep gold. */
+.btn-gold.on-cream {
+  color: var(--gold-deep);
+}
+.btn-gold.on-cream:hover {
+  color: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-gold,
+  .btn-gold::before {
+    transition: none;
+  }
+}
+
+/* The one filled control per viewport — the commit action. */
+.btn-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  border-radius: 9999px;
+  padding: 17px 38px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(100deg, var(--gold-deep), var(--gold) 55%, var(--gold-bright));
+  background-size: 150% 100%;
+  background-position: 0% 0%;
+  transition:
+    background-position 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.2s ease;
+}
+.btn-seal:hover {
+  background-position: 90% 0%;
+}
+.btn-seal:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+.btn-seal:active {
+  transform: translateY(1px);
+}
+.btn-seal:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ===== Trilingual marquee band ===== */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-x 46s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* ===== The stage (cream) — gold rails frame the scroll ===== */
+.stage-rails::before,
+.stage-rails::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--gold) 45%, transparent) 8%,
+    color-mix(in srgb, var(--gold) 45%, transparent) 92%,
+    transparent
+  );
+  pointer-events: none;
+}
+.stage-rails::before {
+  left: max(16px, calc(50vw - 660px));
+}
+.stage-rails::after {
+  right: max(16px, calc(50vw - 660px));
+}
+@media (max-width: 640px) {
+  .stage-rails::before {
+    left: 10px;
+  }
+  .stage-rails::after {
+    right: 10px;
+  }
+}
+
+/* ===== Form fields (night surface) ===== */
+.field {
+  width: 100%;
+  height: 52px;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  background: rgba(250, 246, 236, 0.06);
+  padding: 0 16px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.06rem;
+  color: var(--cream);
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+.field::placeholder {
+  color: color-mix(in srgb, var(--cream) 62%, transparent);
+}
+.field:hover {
+  border-color: color-mix(in srgb, var(--gold) 60%, transparent);
+}
+.field:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 2px;
+  border-color: var(--gold);
+  background: rgba(250, 246, 236, 0.09);
+}
+textarea.field {
+  height: auto;
+  min-height: 120px;
+  padding: 14px 16px;
+  resize: vertical;
+}
+/* Date inputs: keep the calendar glyph legible on night. */
+.field::-webkit-calendar-picker-indicator {
+  filter: invert(0.85) sepia(0.4) saturate(2);
+  cursor: pointer;
+}
+
+/* Segmented pill radios (language / formule) */
+.seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: 9999px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.seg:hover {
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+}
+input:checked + .seg {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #241a05;
+}
+input:focus-visible + .seg {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
+/* ===== FAQ disclosure ===== */
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary .faq-cross {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-item[open] summary .faq-cross {
+  transform: rotate(45deg);
+}
+.faq-item .faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.faq-item[open] .faq-body {
+  grid-template-rows: 1fr;
+}
+.faq-item .faq-body > div {
+  overflow: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item .faq-body,
+  .faq-item summary .faq-cross {
+    transition: none;
+  }
+}
+
+/* ===== Hero film — slow drift (cinema, not screensaver) ===== */
+@keyframes film-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+.film-drift {
+  animation: film-drift 36s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-drift {
+    animation: none;
+  }
+}
+
+/* ===== Wax seal press (form success) ===== */
+@keyframes seal-press {
+  0% {
+    opacity: 0;
+    transform: scale(1.6) rotate(-8deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+.seal-press {
+  animation: seal-press 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .seal-press {
+    animation: none;
+    opacity: 1;
+  }
+}

@@ -1,6 +1,6 @@
 # Client Portal (CMS)
 
-`apps/portal` · Next.js App Router · Port 3003
+`apps/portal` · Next.js App Router · Port 3902
 
 ---
 

@@ -18,15 +18,18 @@ services:
   minio:
     image: minio/minio:latest
     restart: unless-stopped
-    command: server /data --console-address ":9001"
+    command: server /data --console-address ":9911"
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - minio_data:/data
+    # 9000/9001 are already taken on this host by another project's MinIO
+    # (puresmell-minio-1) — 3ers uses 9910/9911 instead. Keep MINIO_ENDPOINT
+    # and MINIO_PUBLIC_URL in .env in sync with whichever port you pick.
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "127.0.0.1:9910:9000"
+      - "127.0.0.1:9911:9911"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 5s
@@ -44,49 +47,57 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
 
+  # ── App services ──────────────────────────────────────────────────────────
+  # This server already runs a HOST-level nginx (systemctl, not Dockerized) in
+  # front of other apps (Rawdhati, PureSmell) — same box, same pattern. 3ers
+  # follows suit instead of running a second, competing nginx: each app binds
+  # to 127.0.0.1:<port> only (never a public port directly), and the host
+  # nginx vhosts in infra/nginx/host/*.conf reverse-proxy + terminate TLS.
+  # See platform/docs/09-domains.md.
+
   invite:
     build:
       context: ..
       dockerfile: apps/invite/Dockerfile
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3900:3000"
     depends_on:
       postgres:
         condition: service_healthy
     env_file: ../.env
 
   marketing:
-    profiles: ["marketing"]
     build:
       context: ..
       dockerfile: apps/marketing/Dockerfile
     restart: unless-stopped
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3903:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
     env_file: ../.env
 
   admin:
-    profiles: ["admin"]
     build:
       context: ..
       dockerfile: apps/admin/Dockerfile
     restart: unless-stopped
     ports:
-      - "3002:3000"
+      - "127.0.0.1:3901:3000"
     depends_on:
       postgres:
         condition: service_healthy
     env_file: ../.env
 
   portal:
-    profiles: ["portal"]
     build:
       context: ..
       dockerfile: apps/portal/Dockerfile
     restart: unless-stopped
     ports:
-      - "3003:3000"
+      - "127.0.0.1:3902:3000"
     depends_on:
       postgres:
         condition: service_healthy

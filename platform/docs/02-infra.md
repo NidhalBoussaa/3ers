@@ -7,10 +7,10 @@
 | `postgres` | postgres:16-alpine | 5432 | Primary database |
 | `pgadmin` | dpage/pgadmin4 | 5050 | DB GUI (dev only) |
 | `minio` | minio/minio | 9000 / 9001 | Object storage (API / Console) |
-| `invite` | custom | 3000 | Wedding invitation app |
-| `marketing` | custom | 3001 | Landing page |
-| `admin` | custom | 3002 | Admin panel |
-| `portal` | custom | 3003 | Client portal |
+| `invite` | custom | 3900 | Wedding invitation app |
+| `admin` | custom | 3901 | Admin panel |
+| `portal` | custom | 3902 | Client portal |
+| `marketing` | custom | 3903 | Landing page |
 
 ---
 
@@ -87,7 +87,7 @@ services:
       dockerfile: apps/invite/Dockerfile
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3900:3000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -99,7 +99,7 @@ services:
       dockerfile: apps/marketing/Dockerfile
     restart: unless-stopped
     ports:
-      - "3001:3000"
+      - "3903:3000"
     env_file: .env
 
   admin:
@@ -108,7 +108,7 @@ services:
       dockerfile: apps/admin/Dockerfile
     restart: unless-stopped
     ports:
-      - "3002:3000"
+      - "3901:3000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -120,7 +120,7 @@ services:
       dockerfile: apps/portal/Dockerfile
     restart: unless-stopped
     ports:
-      - "3003:3000"
+      - "3902:3000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -203,8 +203,8 @@ MINIO_PUBLIC_URL=http://localhost:9000
 
 # Auth
 NEXTAUTH_SECRET=changeme
-NEXTAUTH_URL=http://localhost:3002   # admin
-PORTAL_NEXTAUTH_URL=http://localhost:3003
+NEXTAUTH_URL=http://localhost:3901   # admin
+PORTAL_NEXTAUTH_URL=http://localhost:3902
 
 # Stripe
 STRIPE_SECRET_KEY=sk_test_...
@@ -215,10 +215,10 @@ RESEND_API_KEY=re_...
 RESEND_FROM=no-reply@3ers.tn
 
 # App URLs
-INVITE_BASE_URL=http://localhost:3000
-MARKETING_URL=http://localhost:3001
-ADMIN_URL=http://localhost:3002
-PORTAL_URL=http://localhost:3003
+INVITE_BASE_URL=http://localhost:3900
+ADMIN_URL=http://localhost:3901
+PORTAL_URL=http://localhost:3902
+MARKETING_URL=http://localhost:3903
 ```
 
 ---

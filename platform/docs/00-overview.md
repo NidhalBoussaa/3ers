@@ -77,3 +77,4 @@ Existing invitation lives in `apps/invite` (current repo root, migrated into mon
 - [06-auth.md](./06-auth.md) — auth strategy, roles, session model
 - [07-storage.md](./07-storage.md) — MinIO bucket layout + upload flow
 - [08-monorepo.md](./08-monorepo.md) — pnpm workspaces + Turborepo setup
+- [09-domains.md](./09-domains.md) — celebrio-digital.com DNS, Vercel projects, multi-zone proxy, deploy order

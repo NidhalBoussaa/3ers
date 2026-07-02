@@ -1,6 +1,6 @@
 # Admin Panel
 
-`apps/admin` · Next.js App Router · Port 3002
+`apps/admin` · Next.js App Router · Port 3901
 
 ---
 

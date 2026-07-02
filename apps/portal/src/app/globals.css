@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Serif-only stack — "The No-Sans Rule" (DESIGN.md). */
+  --font-sans: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-body: var(--font-cormorant), Georgia, serif;
+  --font-cinzel: var(--font-cinzel), serif;
+  --font-deco: var(--font-cinzel-deco), serif;
+  --font-vibes: var(--font-vibes), cursive;
+  --font-amiri: var(--font-amiri), serif;
+
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-deep: var(--gold-deep);
+  --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-night: var(--night);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+}
+
+:root {
+  --gold: #c9a44c;
+  --gold-bright: #f1d894;
+  --gold-soft: #e7cf8e;
+  --gold-deep: #8c6d2a;
+  --champagne: #f7f1e3;
+  --cream: #faf6ec;
+  --ink: #2c2114;
+  --ink-soft: #5b4e3a;
+  --night: #0b0805;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+
+  /* Semantic — status hues, kept warm so nothing reads as generic SaaS. */
+  --ok: #4f7a3f;
+  --warn: #a9762a;
+}
+
+@layer base {
+  html {
+    @apply font-body;
+  }
+  html,
+  body {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-cream text-ink antialiased;
+  }
+  ::selection {
+    background: var(--gold);
+    color: #fff;
+  }
+  img {
+    @apply h-auto max-w-full;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  /* Warm, gold focus rings everywhere — no default blue. */
+  :focus-visible {
+    outline: 2px solid var(--gold-bright);
+    outline-offset: 2px;
+  }
+}
+
+/* ===== Ceremonial label (Cinzel, tracked) ===== */
+.lbl {
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+/* ===== Cards — a pane of light on the cream stage ===== */
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72));
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px -20px rgba(140, 109, 42, 0.55);
+}
+
+/* ===== Buttons ===== */
+/* Primary commit — the one filled gold control. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  min-height: 48px;
+  padding: 0 26px;
+  border-radius: 9999px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(100deg, var(--gold-deep), var(--gold) 55%, var(--gold-bright));
+  background-size: 150% 100%;
+  background-position: 0% 0%;
+  transition:
+    background-position 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.18s ease,
+    opacity 0.2s ease;
+}
+.btn:hover {
+  background-position: 90% 0%;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Gold outline — secondary; fill sweeps from the left on hover. */
+.btn-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  min-height: 48px;
+  padding: 0 24px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--gold);
+  border-radius: 9999px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, var(--gold-deep), var(--gold));
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.btn-ghost:hover {
+  color: #fff;
+}
+.btn-ghost:hover::before {
+  transform: translateX(0);
+}
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn-ghost,
+  .btn-ghost::before {
+    transition: none;
+  }
+}
+
+/* ===== Fields (on cream) ===== */
+.field {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 38%, transparent);
+  background: rgba(255, 255, 255, 0.6);
+  padding: 0 15px;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.08rem;
+  color: var(--ink);
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+.field::placeholder {
+  color: color-mix(in srgb, var(--ink-soft) 65%, transparent);
+}
+.field:hover {
+  border-color: color-mix(in srgb, var(--gold) 58%, transparent);
+}
+.field:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 1px;
+  border-color: var(--gold);
+  background: rgba(255, 255, 255, 0.85);
+}
+.field:disabled {
+  background: rgba(140, 109, 42, 0.05);
+  border-color: color-mix(in srgb, var(--gold) 20%, transparent);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+textarea.field {
+  min-height: 120px;
+  padding: 13px 15px;
+  line-height: 1.6;
+  resize: vertical;
+}
+select.field {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' stroke='%238c6d2a' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+.field[dir="rtl"] {
+  font-family: var(--font-amiri), serif;
+  line-height: 1.9;
+  text-align: right;
+}
+
+/* ===== Segmented pill radios / tabs ===== */
+.seg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  border-radius: 9999px;
+  font-family: var(--font-cinzel), serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+.seg:hover {
+  background: color-mix(in srgb, var(--gold) 10%, transparent);
+}
+.seg[aria-pressed="true"],
+input:checked + .seg {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #241a05;
+}
+
+/* ===== Ornament divider ===== */
+.orn {
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+  max-width: 60%;
+}
+.orn line {
+  stroke: var(--gold);
+  stroke-width: 1.1;
+}
+.orn .diamond {
+  fill: var(--gold);
+}
+
+/* ===== Reveal-on-mount (CSS only; visible by default under reduced motion) ===== */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* ===== Toast (save feedback) ===== */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.toast {
+  animation: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
