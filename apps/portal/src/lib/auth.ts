@@ -13,6 +13,12 @@ const loginSchema = z.object({
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.PORTAL_NEXTAUTH_SECRET,
+  // Required behind a reverse proxy (nginx terminates TLS and forwards to
+  // this container on a different host/port) — without it Auth.js rejects
+  // every request with "UntrustedHost", even from the real public domain.
+  // Safe here: nginx is the only public entry point (apps bind to
+  // 127.0.0.1 only), so the Host header nginx forwards is always genuine.
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: { signIn: "/login" },
   providers: [
