@@ -15,9 +15,12 @@ function getDb(): ReturnType<typeof drizzle<typeof schema>> {
   if (!globalForDb._pool) {
     globalForDb._pool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      // Set search_path at session level so Drizzle finds the platform schema
-      // on Neon (pooled connections don't allow it in the connection string).
-      options: "-c search_path=platform",
+      // No search_path override: self-hosted Postgres (infra/postgres/init.sql)
+      // creates every table in the default "public" schema, which is already
+      // first in Postgres's default search_path. (A "platform" schema
+      // override was needed on the old Neon setup; this DB has no such
+      // schema, so setting it caused every query to fail with
+      // `relation "orders" does not exist`.)
     });
   }
   if (!globalForDb._db) {
